@@ -309,3 +309,103 @@ if (fbtns.length) {
   }), { threshold: 0.3 });
   io.observe(mark);
 })();
+
+// ===================== Animations v4 =====================
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const html = document.documentElement;
+  const introDelay = html.classList.contains('intro') ? 1900 : (html.classList.contains('pt-in') ? 650 : 0);
+  const nav = document.querySelector('.nav');
+  const cue = document.querySelector('.scroll-cue');
+
+  // film grain
+  const grain = document.createElement('div');
+  grain.className = 'grain';
+  grain.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(grain);
+
+  if (reduce) {
+    if (nav) nav.classList.add('nav-in');
+    if (cue) cue.classList.add('in');
+    return;
+  }
+
+  // header items drop in one by one
+  if (nav) {
+    [...nav.querySelectorAll('.logo, #menu a, .theme-btn, .menu-btn')].forEach((el, i) => el.style.setProperty('--n', i));
+    setTimeout(() => nav.classList.add('nav-in'), introDelay + 100);
+  }
+  if (cue) setTimeout(() => cue.classList.add('in'), introDelay + 1500);
+
+  // rotating word in the hero headline: easy -> simple -> intuitive -> enjoyable
+  const em = document.querySelector('.hero h1 em');
+  if (em) {
+    const words = ['easy', 'simple', 'intuitive', 'enjoyable'];
+    setTimeout(() => {
+      em.innerHTML = '';
+      const rot = document.createElement('span');
+      rot.className = 'rot';
+      rot.setAttribute('aria-hidden', 'true');
+      em.appendChild(rot);
+      const make = (w, cls) => {
+        const s = document.createElement('span');
+        s.className = 'rot-w' + (cls ? ' ' + cls : '');
+        s.textContent = w;
+        rot.appendChild(s);
+        return s;
+      };
+      const size = el => {
+        const fs = parseFloat(getComputedStyle(rot).fontSize) || 16;
+        rot.style.width = (el.offsetWidth + fs * 0.12).toFixed(1) + 'px';
+      };
+      let i = 0;
+      let cur = make(words[0]);
+      size(cur);
+      setInterval(() => {
+        if (document.hidden) return;
+        i = (i + 1) % words.length;
+        const next = make(words[i], 'enter');
+        size(next);
+        void next.offsetWidth;
+        next.classList.remove('enter');
+        cur.classList.add('leave');
+        const old = cur;
+        cur = next;
+        setTimeout(() => old.remove(), 800);
+      }, 2600);
+    }, introDelay + 2400);
+  }
+
+  // hero parallax on scroll (wide screens)
+  const heroText = document.querySelector('.hero .wrap > div');
+  const heroPhoto = document.querySelector('.hero .photo');
+  if (heroText) {
+    let ticking = false;
+    const para = () => {
+      ticking = false;
+      if (window.innerWidth <= 860) { heroText.style.translate = ''; heroText.style.opacity = ''; if (heroPhoto) heroPhoto.style.translate = ''; return; }
+      const y = window.scrollY;
+      if (y > window.innerHeight * 1.2) return;
+      heroText.style.translate = '0 ' + (y * 0.18).toFixed(1) + 'px';
+      heroText.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.85)).toFixed(3);
+      if (heroPhoto) heroPhoto.style.translate = '0 ' + (-y * 0.07).toFixed(1) + 'px';
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(para); } }, { passive: true });
+  }
+
+  // work tiles tilt in 3D under the mouse
+  if (fine) {
+    document.querySelectorAll('.tile').forEach(t => {
+      const art = t.querySelector('.art');
+      if (!art) return;
+      t.addEventListener('mousemove', e => {
+        const r = art.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        art.style.transform = 'perspective(1000px) rotateY(' + (px * 7).toFixed(2) + 'deg) rotateX(' + (-py * 7).toFixed(2) + 'deg) scale(.985)';
+      });
+      t.addEventListener('mouseleave', () => { art.style.transform = ''; });
+    });
+  }
+})();

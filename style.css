@@ -417,3 +417,52 @@ html.intro body::before{margin-top:clamp(1.3rem,3.4vw,2.6rem);font-size:clamp(.8
 }
 
 .f-col .f-mail{overflow-wrap:break-word}
+
+/* ================= Animations v4 ================= */
+/* film grain texture */
+.grain{position:fixed;left:-50%;top:-50%;width:200%;height:200%;z-index:90;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(5) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-2%,6%)}80%{transform:translate(5%,2%)}100%{transform:translate(0,0)}}
+[data-theme="dark"] .grain{opacity:.08}
+
+/* header items drop in */
+.js .nav:not(.nav-in) .logo,.js .nav:not(.nav-in) #menu a,.js .nav:not(.nav-in) .theme-btn,.js .nav:not(.nav-in) .menu-btn{opacity:0}
+.nav.nav-in .logo,.nav.nav-in #menu a,.nav.nav-in .theme-btn,.nav.nav-in .menu-btn{animation:navDrop .7s cubic-bezier(.2,.7,.2,1) calc(var(--n,0) * 70ms) backwards}
+@keyframes navDrop{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+
+/* rotating word in the hero headline */
+.rot{display:inline-block;vertical-align:top;position:relative;overflow:hidden;height:calc(1.02em + .16em);padding:0 .06em .16em;margin:0 -.06em -.16em;transition:width .7s cubic-bezier(.7,0,.2,1)}
+.rot-w{position:absolute;left:.06em;top:0;line-height:1.02;white-space:nowrap;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.rot-w.enter{transform:translateY(110%)}
+.rot-w.leave{transform:translateY(-110%)}
+
+/* scroll cue in the hero */
+.scroll-cue{display:flex;align-items:center;gap:14px;margin-top:64px;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.scroll-cue span{position:relative;width:1px;height:46px;background:var(--line);overflow:hidden}
+.scroll-cue span::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--ink);animation:cue 1.8s cubic-bezier(.7,0,.2,1) infinite}
+@keyframes cue{to{top:100%}}
+.js .scroll-cue:not(.in){opacity:0}
+.scroll-cue.in{animation:fadeIn .9s ease}
+@media(max-width:860px){.scroll-cue{display:none}}
+
+/* buttons: colour sweeps in from the left */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--accent);transform:scaleX(0);transform-origin:100% 50%;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.btn:hover{background:var(--ink)}
+.btn:hover::before{transform:scaleX(1);transform-origin:0 50%}
+.f-btn{position:relative;overflow:hidden;isolation:isolate}
+.f-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--fa);transform:scaleX(0);transform-origin:100% 50%;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.f-btn:hover{background:var(--bg)}
+.f-btn:hover::before{transform:scaleX(1);transform-origin:0 50%}
+
+/* underline slides out and back in on hover */
+.ulink{border-bottom-color:transparent!important;padding-bottom:3px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1.5px no-repeat}
+.ulink:hover{animation:uline .75s cubic-bezier(.7,0,.2,1)}
+@keyframes uline{0%{background-size:100% 1.5px;background-position:100% 100%}50%{background-size:0% 1.5px;background-position:100% 100%}50.01%{background-size:0% 1.5px;background-position:0 100%}100%{background-size:100% 1.5px;background-position:0 100%}}
+.big a{border-bottom-color:transparent!important;padding-bottom:4px;background:linear-gradient(currentColor,currentColor) 0 100%/100% 3px no-repeat}
+.big a:hover{animation:uline3 .8s cubic-bezier(.7,0,.2,1)}
+@keyframes uline3{0%{background-size:100% 3px;background-position:100% 100%}50%{background-size:0% 3px;background-position:100% 100%}50.01%{background-size:0% 3px;background-position:0 100%}100%{background-size:100% 3px;background-position:0 100%}}
+
+@media(prefers-reduced-motion:reduce){
+  .grain{animation:none}
+  .js .nav:not(.nav-in) .logo,.js .nav:not(.nav-in) #menu a,.js .nav:not(.nav-in) .theme-btn,.js .nav:not(.nav-in) .menu-btn,.js .scroll-cue:not(.in){opacity:1}
+}
