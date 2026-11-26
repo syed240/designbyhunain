@@ -361,3 +361,59 @@ nav a:hover,nav a.active{background-size:100% 1.5px}
   .cursor{display:none}
 }
 @media(hover:none),(pointer:coarse){.cursor{display:none}}
+
+.f-col .f-num{display:block;white-space:nowrap;font-size:.85rem;opacity:.7;margin-top:2px}
+
+/* footer social icons */
+.f-social{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.f-social a{width:46px;height:46px;border-radius:50%;border:1px solid color-mix(in srgb,var(--bg) 35%,transparent);display:grid;place-items:center;color:var(--bg)!important;transition:background .25s,border-color .25s,color .25s,transform .25s}
+.f-social svg{width:20px;height:20px;display:block}
+.f-social a:hover{background:var(--fa);border-color:var(--fa);color:var(--ink)!important;transform:translateY(-3px)}
+
+/* intro: "UI/UX Designer" under the name */
+html.intro::before{padding-bottom:clamp(1.8rem,4.5vw,3rem)}
+html.intro body::before{content:"UI/UX Designer";position:fixed;left:0;right:0;top:50%;margin-top:clamp(.4rem,1.2vw,.9rem);text-align:center;z-index:301;color:var(--bg);font-family:"DM Sans",system-ui,sans-serif;font-weight:500;font-size:clamp(.78rem,1.5vw,1rem);line-height:1;letter-spacing:.32em;text-transform:uppercase;pointer-events:none;animation:introText 1.7s cubic-bezier(.2,.7,.2,1) .12s both}
+@media(prefers-reduced-motion:reduce){html.intro body::before{display:none}}
+
+html.intro::before{padding-bottom:clamp(2.6rem,6.5vw,4.6rem)}
+html.intro body::before{margin-top:clamp(1.3rem,3.4vw,2.6rem);font-size:clamp(.85rem,1.8vw,1.15rem);opacity:.85}
+
+/* ================= Footer v3 ================= */
+.site-footer{position:relative;overflow:hidden;isolation:isolate;padding-bottom:26px}
+.site-footer::before{content:"";position:absolute;z-index:-1;width:680px;height:680px;right:-220px;top:-300px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--fa) 38%,transparent) 0%,transparent 65%);filter:blur(8px);animation:footGlow 14s ease-in-out infinite alternate;pointer-events:none}
+@keyframes footGlow{to{transform:translate(-120px,90px) scale(1.2)}}
+
+.f-pill{display:inline-flex;align-items:center;gap:10px;border:1px solid color-mix(in srgb,var(--bg) 28%,transparent);border-radius:999px;padding:7px 15px;font-size:.82rem;margin-bottom:24px;opacity:.9}
+.f-pill i{width:8px;height:8px;border-radius:50%;background:#3ddc84;animation:pulseDot 2s ease-out infinite}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(61,220,132,.65)}100%{box-shadow:0 0 0 10px rgba(61,220,132,0)}}
+
+.f-col .f-mail{white-space:normal;overflow-wrap:anywhere}
+.f-col a{font-size:1rem}
+
+/* giant name wordmark */
+.f-mark{overflow:hidden;line-height:.95;padding:.06em 0 .1em;margin:10px 0 18px;white-space:nowrap;font-family:"Instrument Serif",Georgia,serif;letter-spacing:-.025em;font-size:clamp(2.6rem,10vw,9rem);user-select:none}
+.f-mark > span{display:inline-block}
+.f-mark .ch{display:inline-block;white-space:pre;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 42%,transparent),color-mix(in srgb,var(--bg) 6%,transparent));-webkit-background-clip:text;background-clip:text;color:transparent;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.f-mark .ch:hover{transform:translateY(-9%);background:linear-gradient(180deg,var(--fa),color-mix(in srgb,var(--fa) 35%,transparent));-webkit-background-clip:text;background-clip:text}
+.js .f-mark:not(.in) .ch{transform:translateY(110%)}
+.f-mark.in .ch{animation:wordUp 1s cubic-bezier(.2,.8,.2,1) calc(var(--i) * 35ms) backwards}
+
+/* bottom bar */
+.f-bottom{align-items:center}
+.f-made{opacity:.85}
+.f-top-link{width:46px;height:46px;border-radius:50%;border:1px solid color-mix(in srgb,var(--bg) 30%,transparent);display:grid;place-items:center;font-size:1.1rem;opacity:1;transition:background .25s,border-color .25s,color .25s}
+.f-top-link span{display:block;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.f-top-link:hover{background:var(--fa);border-color:var(--fa);color:var(--ink)!important}
+.f-top-link:hover span{transform:translateY(-3px)}
+
+@media(max-width:860px){
+  .f-mark{margin:4px 0 12px}
+  .f-bottom{gap:12px}
+  .site-footer::before{width:420px;height:420px;right:-160px;top:-180px}
+}
+@media(prefers-reduced-motion:reduce){
+  .js .f-mark:not(.in) .ch{transform:none}
+  .site-footer::before,.f-pill i{animation:none}
+}
+
+.f-col .f-mail{overflow-wrap:break-word}

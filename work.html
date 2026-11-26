@@ -8,6 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
   <script>(function(){var r=document.documentElement;r.classList.add('js');try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;if(sessionStorage.getItem('pt')){sessionStorage.removeItem('pt');r.classList.add('pt-in')}else if(!sessionStorage.getItem('seen')){sessionStorage.setItem('seen','1');r.classList.add('intro')}}catch(e){}})()</script>
 </head>
@@ -98,9 +102,16 @@
     <div class="wrap">
       <div class="f-top">
         <div class="f-intro">
+          <span class="f-pill"><i></i>Got a project in mind?</span>
           <p class="f-big">Design that feels <em>effortless</em>.</p>
           <p class="f-sub">I'm Syed Muhammad Hunain, a UI/UX designer making apps and websites easy to use.</p>
-          <a class="f-btn" href="contact.html">Contact us →</a>
+          <a class="f-btn" href="contact.html">Contact us</a>
+          <div class="f-social" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/thesyedhuna13d/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.03-3.06-1.86-3.06-1.87 0-2.15 1.46-2.15 2.96V21H9z"/></svg></a>
+            <a href="https://www.behance.net/thesyedhuna13d" target="_blank" rel="noopener noreferrer" aria-label="Behance" title="Behance"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17" text-anchor="middle" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="14" letter-spacing="-.5">Bē</text></svg></a>
+            <a href="https://wa.me/923240232403" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path fill="currentColor" d="M8.8 7.9c.2-.4.5-.4.8-.4h.6c.2 0 .4.1.5.4l.8 1.9c.1.2 0 .5-.1.7l-.6.7c-.1.1-.1.3 0 .5.6 1.1 1.5 2 2.6 2.6.2.1.4.1.5 0l.7-.6c.2-.2.5-.2.7-.1l1.9.8c.3.1.4.3.4.5v.6c0 .3 0 .6-.4.8-.6.4-1.4.6-2.2.4-2.6-.6-5-3-5.6-5.6-.2-.8 0-1.6.4-2.2z"/></svg></a>
+            <a href="mailto:syed.muhammad.hunain1@gmail.com" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></g></svg></a>
+          </div>
         </div>
         <div class="f-col" role="navigation" aria-label="Footer pages">
           <h4>Pages</h4>
@@ -110,15 +121,18 @@
           <a href="contact.html">Contact</a>
         </div>
         <div class="f-col">
-          <h4>Elsewhere</h4>
+          <h4>Get in touch</h4>
+          <a href="mailto:syed.muhammad.hunain1@gmail.com">Email<small class="f-num f-mail">syed.muhammad.hunain1<wbr>@gmail.com</small></a>
+          <a href="https://wa.me/923240232403" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp +92 324 0232403">WhatsApp ↗<small class="f-num">+92 324 0232403</small></a>
           <a href="https://www.linkedin.com/in/thesyedhuna13d/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
           <a href="https://www.behance.net/thesyedhuna13d" target="_blank" rel="noopener noreferrer">Behance ↗</a>
-          <a href="mailto:syed.muhammad.hunain1@gmail.com">Email</a>
         </div>
       </div>
+      <div class="f-mark" aria-hidden="true"><span>Syed Muhammad Hunain</span></div>
       <div class="f-bottom">
         <span>© <span class="year"></span> Syed Muhammad Hunain. All rights reserved.</span>
-        <a href="#top-of-page" class="f-top-link" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+        <span class="f-made">Designed &amp; built by Hunain</span>
+        <a href="#top-of-page" class="f-top-link" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><span aria-hidden="true">↑</span></a>
       </div>
     </div>
   </footer>

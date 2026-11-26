@@ -132,6 +132,16 @@ if (fbtns.length) {
       });
     };
     walk(el);
+    // keep trailing punctuation (e.g. the "." after <em>word</em>) on the same line
+    el.querySelectorAll('.w').forEach(w => {
+      const prev = w.previousSibling;
+      if (prev && prev.nodeType === 1 && !prev.classList.contains('w') && /^[.,!?;:…]+$/.test(w.textContent)) {
+        const keep = document.createElement('span');
+        keep.style.whiteSpace = 'nowrap';
+        prev.replaceWith(keep);
+        keep.append(prev, w);
+      }
+    });
     el.classList.add('split');
   };
 
@@ -265,4 +275,37 @@ if (fbtns.length) {
       p.style.setProperty('--py', 0);
     });
   });
+})();
+
+// ===================== Footer wordmark =====================
+(() => {
+  const mark = document.querySelector('.f-mark');
+  if (!mark) return;
+  const inner = mark.querySelector('span');
+  // split into letters for the rise animation
+  const text = inner.textContent;
+  inner.textContent = '';
+  [...text].forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.className = 'ch';
+    s.style.setProperty('--i', i);
+    s.textContent = ch;
+    inner.appendChild(s);
+  });
+  // scale the name so it fills the footer width exactly
+  const fit = () => {
+    mark.style.fontSize = '100px';
+    const w = inner.getBoundingClientRect().width;
+    if (w > 0) mark.style.fontSize = Math.floor(100 * (mark.clientWidth / w) * 0.99) + 'px';
+  };
+  fit();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  let t;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fit, 120); });
+  // reveal when scrolled into view
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { mark.classList.add('in'); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { mark.classList.add('in'); io.disconnect(); }
+  }), { threshold: 0.3 });
+  io.observe(mark);
 })();
