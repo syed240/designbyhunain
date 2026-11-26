@@ -56,16 +56,23 @@ if (fbtns.length) {
   box.className = 'lightbox';
   box.setAttribute('role', 'dialog');
   box.setAttribute('aria-modal', 'true');
-  box.innerHTML = '<button class="lb-close" aria-label="Close">×</button><p class="lb-title"></p><img alt="">';
+  box.innerHTML = '<button class="lb-close" aria-label="Close">×</button><p class="lb-title"></p><div class="lb-imgs"></div>';
   document.body.appendChild(box);
-  const img = box.querySelector('img'), title = box.querySelector('.lb-title'), closeBtn = box.querySelector('.lb-close');
+  const imgs = box.querySelector('.lb-imgs'), title = box.querySelector('.lb-title'), closeBtn = box.querySelector('.lb-close');
   let last = null;
   const open = a => {
     last = a;
-    img.src = a.dataset.full;
-    img.alt = a.dataset.title || 'Project image';
-    img.style.maxHeight = a.dataset.fit ? 'calc(100vh - 150px)' : '';
-    title.textContent = a.dataset.title || '';
+    // data-full can hold several screens separated by "|"
+    const srcs = a.dataset.full.split('|').map(s => s.trim()).filter(Boolean);
+    imgs.innerHTML = '';
+    srcs.forEach((src, n) => {
+      const im = document.createElement('img');
+      im.src = src;
+      im.alt = (a.dataset.title || 'Project image') + (srcs.length > 1 ? ' — screen ' + (n + 1) : '');
+      if (a.dataset.fit) im.style.maxHeight = 'calc(100vh - 150px)';
+      imgs.appendChild(im);
+    });
+    title.textContent = (a.dataset.title || '') + (srcs.length > 1 ? '  ·  ' + srcs.length + ' screens' : '');
     box.scrollTop = 0;
     box.classList.add('open');
     document.body.classList.add('lb-lock');
@@ -77,7 +84,7 @@ if (fbtns.length) {
     if (last) last.focus();
   };
   links.forEach(a => a.addEventListener('click', e => { e.preventDefault(); open(a); }));
-  box.addEventListener('click', e => { if (e.target !== img) close(); });
+  box.addEventListener('click', e => { if (!e.target.closest('.lb-imgs img')) close(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('open')) close(); });
 })();
 

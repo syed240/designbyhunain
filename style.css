@@ -466,3 +466,13 @@ html.intro body::before{margin-top:clamp(1.3rem,3.4vw,2.6rem);font-size:clamp(.8
   .grain{animation:none}
   .js .nav:not(.nav-in) .logo,.js .nav:not(.nav-in) #menu a,.js .nav:not(.nav-in) .theme-btn,.js .nav:not(.nav-in) .menu-btn,.js .scroll-cue:not(.in){opacity:1}
 }
+
+/* ===== Work page: more tile types ===== */
+.tile:not(.feature) .art.shot img{width:min(38%,240px)}
+.art.cover{padding:0}
+.art.cover > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art.wideimg > img{width:92%;height:auto;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+/* image viewer with several screens */
+.lb-imgs{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;align-items:flex-start}
+.lb-imgs img{margin:0!important}
+@media(max-width:860px){.tile:not(.feature) .art.shot img{width:46%}}
